@@ -1,0 +1,9 @@
+MCU = RP2040
+
+# OLED
+OLED_ENABLE = yes
+LTO_ENABLE = yes
+
+# DIP Switch
+
+DIP_SWITCH_ENABLE = yes
