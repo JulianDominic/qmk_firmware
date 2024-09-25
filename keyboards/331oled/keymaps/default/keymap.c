@@ -1,6 +1,7 @@
 // Copyright 2023 QMK
 // SPDX-License-Identifier: GPL-2.0-or-later
 
+#include "quantum.h"
 #include QMK_KEYBOARD_H
 #define DIP_SWITCH 0
 
@@ -400,12 +401,74 @@ bool dip_switch_update_user(uint8_t index, bool active) {
 }
 #endif
 
-const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-    [0] = LAYOUT_ortho_3x3(
-        KC_1,    KC_2,    KC_3,
-        KC_4,    KC_5,    KC_6,
-        KC_7,    KC_8,    KC_9
-    )
+enum custom_keycodes {
+    LATEX_MATHBB = SAFE_RANGE,
+    LATEX_FORALL,
+    LATEX_EXISTS,
+    LATEX_TEXT,
+    LATEX_SET,
+    LATEX_ALIGN_ENV,
+    MD_TABLE_HEADER_BODY,
+    MD_TABLE_ALIGNMENT,
 };
 
+bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+    switch (keycode) {
+    case LATEX_MATHBB:
+        if (record->event.pressed) {
+            SEND_STRING("\\mathbb{}");
+        }
+        break;
 
+    case LATEX_FORALL:
+        if (record->event.pressed) {
+            SEND_STRING("\\forall");
+        }
+        break;
+
+    case LATEX_EXISTS:
+        if (record->event.pressed) {
+           SEND_STRING("\\exists");
+        }
+        break;
+
+    case LATEX_TEXT:
+        if (record->event.pressed) {
+           SEND_STRING("\\text{}");
+        }
+        break;
+    
+    case LATEX_SET:
+        if (record->event.pressed) {
+           SEND_STRING("\\{\\}");
+        }
+        break;
+
+    case LATEX_ALIGN_ENV:
+        if (record->event.pressed) {
+            SEND_STRING("$$\\begin{align*}\\end{align*}$$");
+        }
+        break;
+
+    case MD_TABLE_HEADER_BODY:
+        if (record->event.pressed) {
+            SEND_STRING("|||");
+        }
+        break;
+
+    case MD_TABLE_ALIGNMENT:
+        if (record->event.pressed) {
+            SEND_STRING("|:-|:-|");
+        }
+        break;
+    }
+    return true;
+};
+
+const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
+    [0] = LAYOUT_ortho_3x3(
+        LATEX_MATHBB,    LATEX_FORALL,    LATEX_EXISTS,
+        LATEX_TEXT,    LATEX_SET,    LATEX_ALIGN_ENV,
+        MD_TABLE_HEADER_BODY,    MD_TABLE_ALIGNMENT,    KC_9
+    )
+};
