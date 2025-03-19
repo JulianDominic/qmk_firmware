@@ -114,7 +114,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [0] = LAYOUT_ortho_3x3(
         KC_AUDIO_VOL_DOWN,    KC_AUDIO_VOL_UP,    KC_AUDIO_MUTE,
-        KC_KP_MINUS,    KC_KP_PLUS,    LALT(KC_TAB),
+        KC_GRAVE,    KC_LEFT_ALT,    KC_TAB,
         LCTL(KC_C),    LCTL(KC_V),    KC_PRINT_SCREEN
     )
 };
