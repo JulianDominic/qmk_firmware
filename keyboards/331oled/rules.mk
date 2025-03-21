@@ -8,3 +8,6 @@ LTO_ENABLE = yes
 
 # DIP Switch
 DIP_SWITCH_ENABLE = yes
+
+# LEADER KEY
+LEADER_ENABLE = yes
